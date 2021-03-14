@@ -1,15 +1,17 @@
-name: npm publish
+name: publish
 
 on:
   release:
     types: [created]
 
 jobs:
-  publish-npm:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: purescript-contrib/setup-purescript@main
+
+      - run: yarn
       - run: spago test
 
       - run: echo "TODO publish"
