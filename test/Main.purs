@@ -9,7 +9,8 @@ import Test.Unit (suite, test)
 import Test.Unit.Main (runTest)
 import Test.Unit.Assert as Assert
 
-import CirruParser (parseCirru, CirruNode(..))
+import Cirru.Node (CirruNode(..))
+import Cirru.Parser (parseCirru)
 
 main :: Effect Unit
 main = do

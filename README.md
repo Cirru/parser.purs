@@ -13,7 +13,8 @@ yarn add @cirru/parser.ts
 _TODO_ install the module `purescript-cirru-parser`...
 
 ```purs
-import CirruParser (parseCirru, CirruNode(..))
+import Cirru.Node (CirruNode(...))
+import Cirru.Parser (parseCirru)
 
 parseCirru "demo"
 
