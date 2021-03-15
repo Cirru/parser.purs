@@ -1,0 +1,24 @@
+{
+    "name": "purescript-cirru-parser",
+    "license": [
+        "MIT"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Cirru/parser.purs"
+    },
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "output"
+    ],
+    "dependencies": {
+        "purescript-arrays": "^v6.0.0",
+        "purescript-console": "^v5.0.0",
+        "purescript-effect": "^v3.0.0",
+        "purescript-lists": "^v6.0.0",
+        "purescript-psci-support": "^v5.0.0",
+        "purescript-test-unit": "^v16.0.0"
+    }
+}
