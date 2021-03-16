@@ -9,12 +9,12 @@ import Data.Array (head, slice, length)
 data CirruNode = CirruLeaf String | CirruList (Array CirruNode)
 
 instance showCirru :: Show CirruNode where
-  show (CirruList xs) = "[" <> (concatNodes xs) <> "]"
+  show (CirruList xs) = "(" <> (concatNodes xs) <> ")"
     where
       concatNodes [] = ""
       concatNodes [y] = case y of
                           CirruLeaf y1 -> y1
-                          CirruList y2 -> "[" <> (concatNodes y2) <> "]"
+                          CirruList y2 -> "(" <> (concatNodes y2) <> ")"
       concatNodes ys = (show (readHead (head ys))) <> " " <> (concatNodes (slice 1 (length ys) ys))
 
       readHead y = case y of
