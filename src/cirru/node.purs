@@ -6,6 +6,7 @@ import Prelude (class Eq, class Show, show, (<>), (==))
 import Data.Maybe (Maybe(..))
 import Data.Array (head, slice, length)
 
+-- | bare Cirru syntax tree consists with String and Array String recursively
 data CirruNode = CirruLeaf String | CirruList (Array CirruNode)
 
 instance showCirru :: Show CirruNode where
