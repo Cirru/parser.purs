@@ -9,7 +9,7 @@ import Test.Unit (suite, test)
 import Test.Unit.Main (runTest)
 import Test.Unit.Assert as Assert
 
-import Cirru.Node (CirruNode(..))
+import Cirru.Node (CirruNode(..), isCirruLeaf, isCirruList)
 import Cirru.Parser (parseCirru)
 import Cirru.Writer (writeCirru)
 
@@ -46,3 +46,28 @@ main = do
         Assert.equal false (a == c)
         Assert.equal fCode (writeCirru fExpr { useInline: false })
         Assert.equal fCodeInline (writeCirru fExpr { useInline: true })
+
+  runTest do
+    suite "compare" do
+      test "compare nodes" do
+        Assert.equal EQ (compare (CirruLeaf "a") (CirruLeaf "a"))
+        Assert.equal LT (compare (CirruLeaf "a") (CirruLeaf "b"))
+        Assert.equal GT (compare (CirruLeaf "b") (CirruLeaf "a"))
+        Assert.equal EQ (compare (CirruList [(CirruLeaf "a")])
+                                 (CirruList [(CirruLeaf "a")]))
+        Assert.equal GT (compare (CirruList [(CirruLeaf "a")]) (CirruLeaf "a"))
+        Assert.equal LT (compare (CirruLeaf "a") (CirruList [(CirruLeaf "a")]))
+        Assert.equal LT (compare (CirruList [(CirruLeaf "a")])
+                                 (CirruList [(CirruLeaf "b")]))
+        Assert.equal GT (compare (CirruList [(CirruLeaf "b")])
+                                 (CirruList [(CirruLeaf "a")]))
+        Assert.equal LT (compare (CirruList [(CirruLeaf "b")])
+                                 (CirruList [(CirruLeaf "a"), (CirruLeaf "a")]))
+        Assert.equal GT (compare (CirruList [(CirruLeaf "b"), (CirruLeaf "a")])
+                                 (CirruList [(CirruLeaf "a")]))
+
+  runTest do
+    suite "detect" do
+      test "test kind" do
+        Assert.equal true (isCirruLeaf (CirruLeaf "a"))
+        Assert.equal true (isCirruList (CirruList [(CirruLeaf "a")]))

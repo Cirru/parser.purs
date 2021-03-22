@@ -4,10 +4,23 @@ module Cirru.Node where
 import Prelude (class Eq, class Show, show, (<>), (==))
 
 import Data.Maybe (Maybe(..))
+import Data.Ord
 import Data.Array (head, slice, length)
 
 -- | bare Cirru syntax tree consists with String and Array String recursively
 data CirruNode = CirruLeaf String | CirruList (Array CirruNode)
+
+-- | detects a leaf
+isCirruLeaf :: CirruNode -> Boolean
+isCirruLeaf x = case x of
+  CirruLeaf _ -> true
+  CirruList _ -> false
+
+-- | detects a list
+isCirruList :: CirruNode -> Boolean
+isCirruList x = case x of
+  CirruLeaf _ -> false
+  CirruList _ -> true
 
 instance showCirru :: Show CirruNode where
   show (CirruList xs) = "(" <> (concatNodes xs) <> ")"
@@ -28,3 +41,13 @@ instance eqCirru :: Eq CirruNode where
   eq (CirruLeaf _) (CirruList _) = false
   eq (CirruList _) (CirruLeaf _) = false
   eq (CirruList xs) (CirruList ys) = xs == ys
+
+-- | leaf < list, shorter list < longer list, than compare items
+instance ordCirruNode :: Ord CirruNode where
+  compare (CirruLeaf x) (CirruLeaf y) = compare x y
+  compare (CirruLeaf _) (CirruList _) = LT
+  compare (CirruList _) (CirruLeaf _) = GT
+  compare (CirruList xs) (CirruList ys) = case compare (length xs) (length ys) of
+    LT -> LT
+    GT -> GT
+    EQ -> compare xs ys
