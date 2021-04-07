@@ -1,9 +1,12 @@
-module Cirru.Parser where
+module Cirru.Parser
+  ( parseCirru
+  ) where
 
 import Cirru.Node (CirruNode(..))
 
 -- | exported from npm package @cirru/parser.ts
-foreign import parseCirruImpl :: String ->
+foreign import parseCirruImpl ::
+  String ->
   (String -> CirruNode) ->
   ((Array CirruNode) -> CirruNode) ->
   CirruNode
